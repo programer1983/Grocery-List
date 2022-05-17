@@ -5,7 +5,7 @@ const Content = () => {
   const [items, setItems] = useState([
     {
       id: 1,
-      checked: false,
+      checked: true,
       item: 'Item 1'
     },
     {
