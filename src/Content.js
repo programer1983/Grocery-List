@@ -5,7 +5,7 @@ const Content = () => {
   const [items, setItems] = useState([
     {
       id: 1,
-      checked: true,
+      checked: false,
       item: 'Item 1'
     },
     {
@@ -19,6 +19,12 @@ const Content = () => {
       item: 'Item 3'
     }
   ])
+
+  const handleChack = (id) => {
+    const listItem = items.map((item) => item.id === id 
+    ? {...item, checked: !item.checked} : item)
+    setItems(listItem)
+  }
  
 
   return (
@@ -29,6 +35,7 @@ const Content = () => {
             <input
                type="checkbox"
                checked={item.checked}
+               onChange={() => handleChack(item.id)}
             />
             <label>{item.item}</label>
             <FaTrashAlt role="button" tabIndex="0"/>
