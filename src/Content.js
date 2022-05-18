@@ -21,9 +21,10 @@ const Content = () => {
   ])
 
   const handleChack = (id) => {
-    const listItem = items.map((item) => item.id === id 
+    const listItems = items.map((item) => item.id === id 
     ? {...item, checked: !item.checked} : item)
-    setItems(listItem)
+    setItems(listItems)
+    localStorage.setItem('shoppinglist', JSON.stringify(listItems))
   }
  
 
@@ -37,7 +38,12 @@ const Content = () => {
                checked={item.checked}
                onChange={() => handleChack(item.id)}
             />
-            <label>{item.item}</label>
+            <label
+               style={item.checked ? {textDecoration: 'line-through'} : null}
+               onDoubleClick={() => handleChack(item.id)}
+            >
+              {item.item}
+            </label>
             <FaTrashAlt role="button" tabIndex="0"/>
           </li>
         ))}
