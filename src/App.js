@@ -57,16 +57,33 @@ function App() {
     if(result) setFetchError(result)
   }
 
-  const handleChack = (id) => {
+  const handleChack = async (id) => {
     const listItems = items.map((item) => item.id === id 
     ? {...item, checked: !item.checked} : item)
     setItems(listItems)
+
+    const myItem = listItems.filter((item) => item.id === id)
+    const updateOptions = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({checked: myItem[0].checked})
+    }
+    const reqUrl = `${API_URL}/${id}`
+    const result = await apiRequest(reqUrl, updateOptions)
+    if(result) setFetchError(result)
   }
 
   
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const listItems = items.filter((item) => item.id !== id)
     setItems(listItems)
+
+    const deleteOptions = {method: 'DELETE'}
+    const reqUrl = `${API_URL}/${id}`
+    const result = await apiRequest(reqUrl, deleteOptions)
+    if(result) setFetchError(result)
   }
 
   
@@ -93,7 +110,7 @@ function App() {
         {isLoading && <p>Loading Items...</p>}
         {fetchError && <p style={{color: 'red'}}>{`Error: ${fetchError}`}</p>}
         {!fetchError && !isLoading && <Content  
-            items={items.filter((item) => item.item.toLowerCase().includes(search.toLowerCase()))} 
+            items={items}  // {items.filter((item) => item.item.toLowerCase().includes(search.toLowerCase()))} 
             handleChack={handleChack}
             handleDelete={handleDelete}
           />
