@@ -110,7 +110,7 @@ function App() {
         {isLoading && <p>Loading Items...</p>}
         {fetchError && <p style={{color: 'red'}}>{`Error: ${fetchError}`}</p>}
         {!fetchError && !isLoading && <Content  
-            items={items}  // {items.filter((item) => item.item.toLowerCase().includes(search.toLowerCase()))} 
+            items={items.filter((item) => item.item.toLowerCase().includes(search.toLowerCase()))} 
             handleChack={handleChack}
             handleDelete={handleDelete}
           />
